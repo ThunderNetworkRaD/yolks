@@ -11,7 +11,7 @@ on:
 jobs:
   push:
     name: "yolks:go_${{ matrix.tag }}"
-    runs-on: self-hosted
+    runs-on: node1
     strategy:
       fail-fast: false
       matrix:
