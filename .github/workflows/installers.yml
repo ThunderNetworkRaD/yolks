@@ -14,7 +14,7 @@ on:
 jobs:
   pushMultiArch:
     name: "yolks:installers_multiarch:${{ matrix.tag }}"
-    runs-on: node1
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
