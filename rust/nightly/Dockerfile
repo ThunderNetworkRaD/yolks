@@ -3,7 +3,7 @@ FROM        --platform=$TARGETOS/$TARGETARCH rustlang/rust:nightly-slim
 LABEL       author="ThunderNetworkRaD" maintainer="thundernetwork.org@gmail.com"
 
 RUN         apt update \
-                && apt -y install git dnsutils curl iproute2 ffmpeg tini pkg-config \
+                && apt -y install git dnsutils curl iproute2 ffmpeg tini pkg-config cmake \
                 && useradd -m -d /home/container container
 
 USER        container
