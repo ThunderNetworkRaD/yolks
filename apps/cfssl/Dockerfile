@@ -4,15 +4,15 @@ ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
-WORKDIR /home/container
-COPY . /home/container
+WORKDIR /workdir
+COPY . /workdir
 
 #RUN set -x && \
 #	apk --no-cache add git gcc libc-dev make
 
-RUN git clone https://github.com/cloudflare/cfssl_trust.git /home/container && \
+RUN git clone https://github.com/cloudflare/cfssl_trust.git /home/container/cfssl && \
     make clean && \
-    make all
+	GOOS=${TARGETOS} GOARCH=${TARGETARCH} make all && cp bin/* /usr/bin/
 
 ENV PATH="/home/container/bin:${PATH}"
 
