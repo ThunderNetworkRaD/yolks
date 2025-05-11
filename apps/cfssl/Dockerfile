@@ -14,7 +14,7 @@ RUN git clone https://github.com/cloudflare/cfssl_trust.git /home/container/cfss
     make clean && \
 	GOOS=${TARGETOS} GOARCH=${TARGETARCH} make all && cp bin/* /usr/bin/
 
-ENV PATH="/home/container/bin:${PATH}"
+#ENV PATH="/home/container/bin:${PATH}"
 
 RUN         adduser -D -h /home/container container -s /bin/bash container
 USER        container
