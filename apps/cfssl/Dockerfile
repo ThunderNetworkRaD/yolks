@@ -5,7 +5,6 @@ ARG BUILDPLATFORM
 RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
 WORKDIR /workdir
-COPY . /workdir
 
 #RUN set -x && \
 #	apk --no-cache add git gcc libc-dev make
