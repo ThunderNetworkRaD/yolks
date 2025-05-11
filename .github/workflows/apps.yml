@@ -17,6 +17,7 @@ jobs:
       matrix:
         app:
           - uptimekuma
+          - cfssl
     steps:
       - uses: actions/checkout@v4
       
@@ -30,7 +31,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
+          password: ${{ secrets.GP_TOKEN }}
       
       - uses: docker/build-push-action@v6
         with:
@@ -39,5 +40,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/apps:${{ matrix.app }}
-            ${{ github.repository_owner == 'pelican-eggs' && format('ghcr.io/parkervcp/apps:{0}', matrix.app) || '' }}
+            ghcr.io/thundernetworkrad/yolks:apps_${{ matrix.app }}
