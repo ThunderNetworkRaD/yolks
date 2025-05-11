@@ -17,7 +17,7 @@ RUN git clone --depth 1 https://github.com/cloudflare/cfssl_trust.git /etc/cfssl
 
 ENV PATH="/usr/bin:${PATH}"
 
-RUN         adduser -D -h /home/container container -s /bin/bash container
+RUN         adduser -D -h /home/container container
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
