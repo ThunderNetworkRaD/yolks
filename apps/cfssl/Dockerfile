@@ -10,11 +10,12 @@ COPY . /workdir
 #RUN set -x && \
 #	apk --no-cache add git gcc libc-dev make
 
-RUN git clone https://github.com/cloudflare/cfssl_trust.git /home/container/cfssl && \
+RUN git clone https://github.com/cloudflare/cfssl_trust.git /etc/cfssl && \
     make clean && \
-	GOOS=${TARGETOS} GOARCH=${TARGETARCH} make all && cp bin/* /usr/bin/
+	GOOS=${TARGETOS} GOARCH=${TARGETARCH} make all && cp bin/* /usr/bin/ && \
+	ln -s /etc/cfssl /home/container
 
-#ENV PATH="/home/container/bin:${PATH}"
+ENV PATH="/usr/bin:${PATH}"
 
 RUN         adduser -D -h /home/container container -s /bin/bash container
 USER        container
