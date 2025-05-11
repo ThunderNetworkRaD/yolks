@@ -17,15 +17,11 @@ RUN git clone --depth 1 https://github.com/cloudflare/cfssl_trust.git /etc/cfssl
 
 ENV PATH="/usr/bin:${PATH}"
 
+# Pelican-related files
 RUN         adduser -D -h /home/container container
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-STOPSIGNAL SIGINT
-
-# Pelican-related files
-COPY        --chown=container:container ./entrypoint.sh /entrypoint.sh
-RUN         chmod +x /entrypoint.sh
-ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
-CMD ["/entrypoint.sh"]
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/ash", "/entrypoint.sh" ]
