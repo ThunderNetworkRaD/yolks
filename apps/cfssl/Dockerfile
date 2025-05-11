@@ -10,8 +10,8 @@ COPY . /workdir
 #RUN set -x && \
 #	apk --no-cache add git gcc libc-dev make
 
-RUN git clone https://github.com/cloudflare/cfssl_trust.git /etc/cfssl && \
-	git clone https://github.com/cloudflare/cfssl.git . && \
+RUN git clone --depth 1 https://github.com/cloudflare/cfssl_trust.git /etc/cfssl && \
+	git clone --depth 1 https://github.com/cloudflare/cfssl.git . && \
     make clean && \
 	GOOS=${TARGETOS} GOARCH=${TARGETARCH} make all && cp bin/* /usr/bin/ && \
 	ln -s /etc/cfssl /home/container
