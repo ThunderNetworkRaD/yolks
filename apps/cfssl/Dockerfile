@@ -1,20 +1,18 @@
-FROM golang:1.20-alpine AS builder
+FROM --platform=$TARGETOS/$TARGETARCH golang:1.20
 
-WORKDIR /workdir
-COPY . /workdir
-
-RUN set -x && \
-	apk --no-cache add git gcc libc-dev make
-
-RUN git clone https://github.com/cloudflare/cfssl_trust.git /etc/cfssl && \
-    make clean && \
-    make all
-
-FROM --platform=$TARGETOS/$TARGETARCH alpine:3.11
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
 WORKDIR /home/container
-COPY --from=builder /etc/cfssl /home/container
-COPY --from=builder /workdir/bin/ /home/container/bin
+COPY . /home/container
+
+#RUN set -x && \
+#	apk --no-cache add git gcc libc-dev make
+
+RUN git clone https://github.com/cloudflare/cfssl_trust.git /home/container && \
+    make clean && \
+    make all
 
 ENV PATH="/home/container/bin:${PATH}"
 
